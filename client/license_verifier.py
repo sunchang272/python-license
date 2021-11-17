@@ -8,9 +8,9 @@ Create Date: 2021/11/12 9:36
 -------------------------------------------------
 """
 
-from license_getter import GenLic
 from Crypto.Cipher import PKCS1_OAEP, AES
 from Crypto.PublicKey import RSA
+from license_getter import GenLic
 import datetime
 import base64
 import os

@@ -8,14 +8,22 @@ Create Date: 2021/11/12 9:36
 -------------------------------------------------
 """
 
-import socket
 import hashlib
+import socket
 import base64
 import uuid
 import os
 
 
 class Utils:
+    # select any to combine license
+    # below functions can work in most dockers, but not absolutely safe
+    # without docker, refer the methods in ./client/tools
+    @staticmethod
+    def format_lic(chars):
+        # defined your format and head
+        return '{0}_{1}'.format('PyAuth', chars.decode()).encode()
+
     @staticmethod
     def get_mac_address():
         # ref: https://zhuanlan.zhihu.com/p/155951909
@@ -33,7 +41,7 @@ class Utils:
     @staticmethod
     def get_os_info():
         # For docker, the second position means the container id
-        # The last position may be different either in same server
+        # The last position may be different either in same device
         return ' '.join(os.popen('uname -a').read().split(' ')[2:-1])
 
     @staticmethod

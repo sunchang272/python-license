@@ -138,7 +138,7 @@ class EncLicGUI:
         self.aes_key_path.set(file_path)
 
     def get_lic_path(self):
-        file_path = filedialog.askopenfilename(parent=self.frame, initialdir=data_folder, filetypes=[('lic', '*.lic')])
+        file_path = filedialog.askopenfilename(parent=self.frame, initialdir=data_folder, filetypes=[('ori', '*.ori')])
         self.ori_lic_path.set(file_path)
 
     def enc_lic(self):

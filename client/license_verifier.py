@@ -8,7 +8,7 @@ Create Date: 2021/11/12 9:36
 -------------------------------------------------
 """
 
-from client.license_getter import GenLic
+from license_getter import GenLic
 from Crypto.Cipher import PKCS1_OAEP, AES
 from Crypto.PublicKey import RSA
 import datetime
@@ -84,7 +84,6 @@ class VerifyLic:
         try:
             base64_decoded_license = Utils.base64_decode(self.license)
             aes_decrypted_license = Utils.aes_decrypt(base64_decoded_license, self.decrypted_aes_key)
-            print(aes_decrypted_license.decode())
             return Utils.format_license(aes_decrypted_license)
         except Exception as e:
             print(e)
@@ -109,6 +108,8 @@ class VerifyLic:
 
 def is_license_valid(lic_file, aes_key_file, rsa_key_file):
     # Files call this function must be compiled
+    if not os.path.exists(lic_file) or not os.path.exists(aes_key_file) or not os.path.exists(rsa_key_file):
+        return False
     verifier = VerifyLic(lic_file, aes_key_file, rsa_key_file)
     return verifier.verify_license()
 

@@ -62,14 +62,13 @@ class GenLic:
     def gen_license():
         try:
             ori_lic = Utils.get_mac_address().encode()
-            hash_lic = Utils.sha256_enc(Utils.md5_enc(ori_lic))
-            return Utils.base64_enc(hash_lic)
+            return Utils.base64_enc(ori_lic)
         except Exception as e:
             print(e)
             return None
 
     def save_license(self):
-        lic_path = os.path.join(self.out_path, 'License.lic').replace('\\', '/')
+        lic_path = os.path.join(self.out_path).replace('\\', '/')
         with open(lic_path, 'wb') as lic_writer:
             lic_writer.write(self.license)
 
@@ -80,4 +79,4 @@ def get_license(out_path):
 
 
 if __name__ == '__main__':
-    get_license('./')
+    get_license('./License.lic')

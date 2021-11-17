@@ -184,7 +184,8 @@ class EncLic:
         ori_lic = Utils.add_to_16(Utils.format_license(self.lic, self.due_time))
         aes_lic = Utils.aes_enc(ori_lic, ori_key)
         base64_aes_lic = Utils.base64_enc(aes_lic)
-        with open(self.lic_file, 'wb') as lic_writer:
+        out_lic_file = '{}.enc'.format(os.path.splitext(self.lic_file)[0])
+        with open(out_lic_file, 'wb') as lic_writer:
             lic_writer.write(base64_aes_lic)
         return 'Success, license in {0}'.format(os.path.dirname(self.lic_file))
 

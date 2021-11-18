@@ -71,7 +71,7 @@ class NewKeyGUI:
         rand_name, rand_key = GenKey.rand_key()
         self.key_name.set(rand_name)
         self.key_value.set(rand_key)
-        self.gen_key()
+        # self.gen_key()
 
 
 class EncLicGUI:

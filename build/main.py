@@ -13,7 +13,7 @@ from Cython.Build import cythonize
 from distutils.core import setup
 
 setup(
-  name='duty-back',
+  name='python-license',
   ext_modules=cythonize([
     '../server/gui.py',
     '../server/func.py',

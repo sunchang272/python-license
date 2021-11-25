@@ -80,9 +80,9 @@ class Utils:
         return aes.encrypt(chars)
 
     @staticmethod
-    def format_license(ori_lic, date):
+    def format_license(ori_lic, date, remark):
         ori_lic_str = ori_lic.decode().strip('\n')
-        return '{0}\n{1}'.format(ori_lic_str, date).encode()
+        return '{0}\n{1}\n{2}'.format(ori_lic_str, date, remark).encode()
 
     @staticmethod
     def add_to_16(chars):
@@ -156,10 +156,11 @@ class GenKey:
 
 
 class EncLic:
-    def __init__(self, key_file, lic_file, due_time):
+    def __init__(self, key_file, lic_file, due_time, remark):
         self.key_file = key_file
         self.lic_file = lic_file
         self.due_time = due_time
+        self.remark = remark
         self.lic = self.load_lic()
         self.key = self.load_key()
 
@@ -181,7 +182,7 @@ class EncLic:
         if self.lic is None or self.key is None:
             return 'License file or key file invalid'
         ori_key = Utils.add_to_16(self.key)
-        ori_lic = Utils.add_to_16(Utils.format_license(self.lic, self.due_time))
+        ori_lic = Utils.add_to_16(Utils.format_license(self.lic, self.due_time, self.remark))
         aes_lic = Utils.aes_enc(ori_lic, ori_key)
         base64_aes_lic = Utils.base64_enc(aes_lic)
         out_lic_file = '{}.enc'.format(os.path.splitext(self.lic_file)[0])

@@ -80,15 +80,18 @@ class EncLicGUI:
         self.aes_key_path = None
         self.ori_lic_path = None
         self.due_time = None
+        self.remark = None
         self.gen_log = None
         self.aes_key_select_btn = None
         self.ori_lic_select_btn = None
         self.due_time_label = None
+        self.remark_label = None
         self.gen_log_label = None
         self.help_text_label = None
         self.key_path_entry = None
         self.lic_path_entry = None
         self.due_time_entry = None
+        self.remark_entry = None
         self.enc_lic_btn = None
 
     def init_window(self):
@@ -101,6 +104,7 @@ class EncLicGUI:
         self.aes_key_path = StringVar()
         self.ori_lic_path = StringVar()
         self.due_time = StringVar()
+        self.remark = StringVar()
         self.gen_log = StringVar()
 
         # Button
@@ -113,12 +117,13 @@ class EncLicGUI:
 
         # Label
         self.due_time_label = Label(self.frame, text='输入到期时间：', bg='#F8F8FF', font=('YaHei', 10))
-        self.due_time_label.grid(row=2, column=0, pady=10, padx=10)
-        self.due_time.set(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+        self.due_time_label.grid(row=2, column=0, pady=10, padx=10, sticky='E')
+        self.remark_label = Label(self.frame, text='备注：', bg='#F8F8FF', font=('YaHei', 10))
+        self.remark_label.grid(row=3, column=0, pady=10, padx=10, sticky='E')
         self.gen_log_label = Label(self.frame, textvariable=self.gen_log, bg='#F8F8FF', font=('YaHei', 10))
-        self.gen_log_label.grid(row=4, column=0, columnspan=2, pady=10, padx=5, sticky='W')
+        self.gen_log_label.grid(row=5, column=0, columnspan=2, pady=10, padx=5, sticky='W')
         self.help_text_label = Label(self.frame, text='帮    助：TODO', bg='#F8F8FF', font=('YaHei', 10))
-        self.help_text_label.grid(row=5, column=0, columnspan=2, pady=10, padx=10, sticky='W')
+        self.help_text_label.grid(row=6, column=0, columnspan=2, pady=10, padx=10, sticky='W')
 
         # Entry
         self.key_path_entry = Entry(self.frame, textvariable=self.aes_key_path, width=50, font=('YaHei', 10))
@@ -127,11 +132,14 @@ class EncLicGUI:
         self.lic_path_entry.grid(row=1, column=1, pady=10, padx=10)
         self.due_time_entry = Entry(self.frame, textvariable=self.due_time, width=50, font=('YaHei', 10))
         self.due_time_entry.grid(row=2, column=1, pady=10, padx=10)
+        self.due_time.set(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+        self.remark_entry = Entry(self.frame, textvariable=self.remark, width=50, font=('YaHei', 10))
+        self.remark_entry.grid(row=3, column=1, pady=10, padx=10)
 
         # Button
         self.enc_lic_btn = Button(self.frame, text='加密License', command=self.enc_lic, bd=1, bg='#F8F8FF', width=15,
                                   font=('YaHei', 10))
-        self.enc_lic_btn.grid(row=3, column=0, pady=10, padx=10)
+        self.enc_lic_btn.grid(row=4, column=0, pady=10, padx=10)
 
     def get_key_path(self):
         file_path = filedialog.askopenfilename(parent=self.frame, initialdir=data_folder, filetypes=[('ori', '*.ori')])
@@ -142,7 +150,7 @@ class EncLicGUI:
         self.ori_lic_path.set(file_path)
 
     def enc_lic(self):
-        lic_enc = EncLic(self.aes_key_path.get(), self.ori_lic_path.get(), self.due_time.get())
+        lic_enc = EncLic(self.aes_key_path.get(), self.ori_lic_path.get(), self.due_time.get(), self.remark.get())
         self.gen_log.set(lic_enc.enc_lic())
 
 
@@ -210,8 +218,8 @@ def gui_open():
     main_portal = AuthMainGUI(init_window)
     # 设置根窗口默认属性
     main_portal.init_window()
-
-    init_window.mainloop()  # 父窗口进入事件循环，可以理解为保持窗口运行，否则界面不展示
+    # 父窗口进入事件循环，可以理解为保持窗口运行，否则界面不展示
+    init_window.mainloop()
 
 
 if __name__ == '__main__':

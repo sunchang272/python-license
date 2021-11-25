@@ -33,8 +33,8 @@ class Utils:
 
     @staticmethod
     def format_license(chars):
-        hw_info, due_time = chars.decode().split('\n')
-        return hw_info.encode(), due_time[:19]
+        hw_info, due_time, remark = chars.decode().split('\n')
+        return hw_info.encode(), due_time[:19], remark
 
 
 class VerifyLic:
@@ -46,7 +46,7 @@ class VerifyLic:
         self.rsa_pri_key = self.load_rsa_key()
         self.aes_key = self.load_aes_key()
         self.decrypted_aes_key = self.decrypt_aes_key()
-        self.hw_info, self.due_time = self.decrypt_lic()
+        self.hw_info, self.due_time, self.remark = self.decrypt_lic()
 
     def load_lic(self):
         if not os.path.exists(self.lic_file):

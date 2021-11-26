@@ -83,7 +83,7 @@ if __name__ == '__main__':
 
 ---
 #### 具体实现
-![Alt](https://github.com/sunchang272/python-license/blob/main/images/frame.png?raw=true)
+![Alt](https://github.com/sunchang272/python-license/blob/main/images/frame.png)
 
 原理非常简单，如上图所示
 
